@@ -1,70 +1,49 @@
 local k="\110\111\111\98\95\104\97\99\111\108\111\114\100\53\48\49"
-local Players=game:GetService("Players")
-local RepStorage=game:GetService("ReplicatedStorage")
-local TweenService=game:GetService("TweenService")
-local LocalPlayer=Players.LocalPlayer
-local PlayerGui=LocalPlayer:WaitForChild("PlayerGui")
-
-local function createKeyGUI()
-    if PlayerGui:FindFirstChild("\66\114\105\110\103\75\101\121") then return end
-    local s=Instance.new("ScreenGui",PlayerGui)
-    s.Name="\66\114\105\110\103\75\101\121"
-    local f=Instance.new("Frame",s)
-    f.Size=UDim2.new(0,300,0,150)
-    f.Position=UDim2.new(0.5,-150,0.5,-75)
-    f.BackgroundColor3=Color3.fromRGB(50,50,80)
-    f.Active=true
-    f.Draggable=true
-    Instance.new("UICorner",f).CornerRadius=UDim.new(0,12)
-
-    local t=Instance.new("TextBox",f)
-    t.Size=UDim2.new(0.8,0,0,30)
-    t.Position=UDim2.new(0.1,0,0.3,0)
-    t.PlaceholderText="Nhập key..."
-    t.TextColor3=Color3.new(1,1,1)
-    t.BackgroundColor3=Color3.fromRGB(60,60,90)
-    Instance.new("UICorner",t).CornerRadius=UDim.new(0,8)
-
-    local b=Instance.new("TextButton",f)
-    b.Size=UDim2.new(0.4,0,0,35)
-    b.Position=UDim2.new(0.3,0,0.6,0)
-    b.Text="Xác nhận"
-    b.TextColor3=Color3.new(1,1,1)
-    b.BackgroundColor3=Color3.fromRGB(100,80,150)
-    Instance.new("UICorner",b).CornerRadius=UDim.new(0,10)
-
-    local l=Instance.new("TextLabel",f)
-    l.Size=UDim2.new(0.8,0,0,25)
-    l.Position=UDim2.new(0.1,0,0.1,0)
-    l.TextColor3=Color3.fromRGB(255,0,0)
-    l.BackgroundTransparency=1
-    l.TextScaled=true
-    l.Font=Enum.Font.GothamBold
-    l.Text="Key"
-
-    b.MouseButton1Click:Connect(function()
-        if t.Text==k then
-            if f and f.Parent then f:Destroy() end
-            createMainGUI()
-        else
-            l.Text="Key không hợp lệ!"
-        end
-    end)
-end
-
-function createMainGUI()
-    if PlayerGui:FindFirstChild("\66\114\105\110\103\71\117\105") then return end
-    local sg=Instance.new("ScreenGui",PlayerGui)
-    sg.Name="\66\114\105\110\103\71\117\105"
-
-    local fr=Instance.new("Frame",sg)
+local s=Instance.new("ScreenGui",game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"))
+s.Name="\66\114\105\110\103\75\101\121"
+local f=Instance.new("Frame",s)
+f.Size=UDim2.new(0,300,0,150)
+f.Position=UDim2.new(0.5,-150,0.5,-75)
+f.BackgroundColor3=Color3.fromRGB(50,50,80)
+f.Active=true
+f.Draggable=true
+Instance.new("UICorner",f).CornerRadius=UDim.new(0,12)
+local t=Instance.new("TextBox",f)
+t.Size=UDim2.new(0.8,0,0,30)
+t.Position=UDim2.new(0.1,0,0.3,0)
+t.PlaceholderText="Nhập key..."
+t.TextColor3=Color3.new(1,1,1)
+t.BackgroundColor3=Color3.fromRGB(60,60,90)
+Instance.new("UICorner",t).CornerRadius=UDim.new(0,8)
+local b=Instance.new("TextButton",f)
+b.Size=UDim2.new(0.4,0,0,35)
+b.Position=UDim2.new(0.3,0,0.6,0)
+b.Text="Xác nhận"
+b.TextColor3=Color3.new(1,1,1)
+b.BackgroundColor3=Color3.fromRGB(100,80,150)
+Instance.new("UICorner",b).CornerRadius=UDim.new(0,10)
+local l=Instance.new("TextLabel",f)
+l.Size=UDim2.new(0.8,0,0,25)
+l.Position=UDim2.new(0.1,0,0.1,0)
+l.TextColor3=Color3.fromRGB(255,0,0)
+l.BackgroundTransparency=1
+l.TextScaled=true
+l.Font=Enum.Font.GothamBold
+l.Text="Key"
+local guiMain=nil
+local function createMainGUI()
+    local lp=game:GetService("Players").LocalPlayer
+    local pg=lp:WaitForChild("PlayerGui")
+    guiMain=Instance.new("ScreenGui",pg)
+    guiMain.Name="\66\114\105\110\103\71\117\105"
+    guiMain.ResetOnSpawn=false
+    local fr=Instance.new("Frame",guiMain)
     fr.Size=UDim2.new(0,300,0,400)
     fr.Position=UDim2.new(0.5,-150,0.4,0)
     fr.BackgroundColor3=Color3.fromRGB(50,50,80)
     fr.Active=true
     fr.Draggable=true
     Instance.new("UICorner",fr).CornerRadius=UDim.new(0,12)
-
     local h=Instance.new("TextLabel",fr)
     h.Size=UDim2.new(1,0,0,40)
     h.BackgroundTransparency=1
@@ -72,7 +51,6 @@ function createMainGUI()
     h.TextColor3=Color3.new(1,1,1)
     h.TextScaled=true
     h.Font=Enum.Font.GothamBold
-
     local cb=Instance.new("TextButton",fr)
     cb.Size=UDim2.new(0,25,0,25)
     cb.Position=UDim2.new(1,-30,0,5)
@@ -82,8 +60,7 @@ function createMainGUI()
     cb.TextColor3=Color3.new(1,1,1)
     cb.BackgroundColor3=Color3.fromRGB(180,30,30)
     Instance.new("UICorner",cb).CornerRadius=UDim.new(0,8)
-    cb.MouseButton1Click:Connect(function() sg:Destroy() end)
-
+    cb.MouseButton1Click:Connect(function() guiMain:Destroy() guiMain=nil end)
     local mb=Instance.new("TextButton",fr)
     mb.Size=UDim2.new(0,25,0,25)
     mb.Position=UDim2.new(1,-60,0,5)
@@ -93,12 +70,11 @@ function createMainGUI()
     mb.TextColor3=Color3.new(1,1,1)
     mb.BackgroundColor3=Color3.fromRGB(180,30,30)
     Instance.new("UICorner",mb).CornerRadius=UDim.new(0,8)
-
     local orb=nil
     mb.MouseButton1Click:Connect(function()
         fr.Visible=false
         if orb then orb:Destroy() end
-        orb=Instance.new("TextButton",sg)
+        orb=Instance.new("TextButton",guiMain)
         orb.Size=UDim2.new(0,70,0,70)
         orb.Position=UDim2.new(1,-80,0,20)
         orb.BackgroundColor3=Color3.fromRGB(40,40,90)
@@ -114,14 +90,11 @@ function createMainGUI()
             orb:Destroy()
         end)
     end)
-
-    local sp=nil
     local list=Instance.new("ScrollingFrame",fr)
     list.Size=UDim2.new(1,-20,0,180)
     list.Position=UDim2.new(0,10,0,50)
     list.BackgroundTransparency=1
     list.ScrollBarThickness=6
-
     local bring=Instance.new("TextButton",fr)
     bring.Size=UDim2.new(0.4,0,0,35)
     bring.Position=UDim2.new(0.3,0,0,240)
@@ -131,7 +104,6 @@ function createMainGUI()
     bring.BackgroundColor3=Color3.fromRGB(100,80,150)
     bring.TextColor3=Color3.new(1,1,1)
     Instance.new("UICorner",bring).CornerRadius=UDim.new(0,10)
-
     local skillBox=Instance.new("TextBox",fr)
     skillBox.Size=UDim2.new(0.6,0,0,30)
     skillBox.Position=UDim2.new(0.2,0,0,290)
@@ -139,7 +111,6 @@ function createMainGUI()
     skillBox.TextColor3=Color3.new(1,1,1)
     skillBox.BackgroundColor3=Color3.fromRGB(60,60,90)
     Instance.new("UICorner",skillBox).CornerRadius=UDim.new(0,8)
-
     local useSkill=Instance.new("TextButton",fr)
     useSkill.Size=UDim2.new(0.4,0,0,35)
     useSkill.Position=UDim2.new(0.3,0,0,330)
@@ -149,12 +120,12 @@ function createMainGUI()
     useSkill.BackgroundColor3=Color3.fromRGB(120,50,180)
     useSkill.TextColor3=Color3.new(1,1,1)
     Instance.new("UICorner",useSkill).CornerRadius=UDim.new(0,10)
-
+    local sp=nil
     local function refList()
         list:ClearAllChildren()
         local y=0
-        for _,plr in ipairs(Players:GetPlayers()) do
-            if plr~=LocalPlayer then
+        for _,plr in ipairs(game:GetService("Players"):GetPlayers()) do
+            if plr~=game.Players.LocalPlayer then
                 local btn=Instance.new("TextButton",list)
                 btn.Size=UDim2.new(1,-10,0,30)
                 btn.Position=UDim2.new(0,5,0,y)
@@ -176,22 +147,24 @@ function createMainGUI()
         list.CanvasSize=UDim2.new(0,0,0,y)
     end
     refList()
-    Players.PlayerAdded:Connect(refList)
-    Players.PlayerRemoving:Connect(refList)
-
+    game:GetService("Players").PlayerAdded:Connect(refList)
+    game:GetService("Players").PlayerRemoving:Connect(refList)
     bring.MouseButton1Click:Connect(function()
-        if sp then RepStorage:WaitForChild("SkillEvent"):FireServer("Pain",sp) end
+        if sp then game:GetService("ReplicatedStorage"):WaitForChild("SkillEvent"):FireServer("Pain",sp) end
     end)
-
     useSkill.MouseButton1Click:Connect(function()
         if sp and skillBox.Text~="" then
-            RepStorage:WaitForChild("SkillEvent"):FireServer(skillBox.Text,sp)
+            game:GetService("ReplicatedStorage"):WaitForChild("SkillEvent"):FireServer(skillBox.Text,sp)
         end
     end)
-
-    LocalPlayer.CharacterAdded:Connect(function()
-        createMainGUI()
-    end)
 end
-
-createKeyGUI()
+b.MouseButton1Click:Connect(function()
+    if t.Text==k then
+        f:Destroy()
+        if not guiMain then
+            createMainGUI()
+        end
+    else
+        l.Text="Key không hợp lệ!"
+    end
+end)
